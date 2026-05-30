@@ -1,6 +1,7 @@
 ---
 name: worker
 description: Implementation agent for normal tasks and approved oracle handoffs
+model: openai-codex/gpt-5.4
 thinking: high
 systemPromptMode: replace
 inheritProjectContext: true

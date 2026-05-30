@@ -3,5 +3,6 @@
 AGENTS.md
 node_modules/
 .fallow/
+.antigravitycli/
 
 package-lock.json
