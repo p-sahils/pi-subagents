@@ -24,6 +24,7 @@
   ],
   "files": [
     "src/**/*.ts",
+    "src/**/*.json",
     "agents/",
     "skills/**/*",
     "prompts/**/*",
@@ -38,7 +39,8 @@
   },
   "pi": {
     "extensions": [
-      "./src/extension/index.ts"
+      "./src/extension/index.ts",
+      "./src/extension/safe-bash.ts"
     ],
     "skills": [
       "./skills"

@@ -30,6 +30,10 @@ describe("foreground tool-call compaction", () => {
 		}]);
 	});
 
+	it("formats safe_bash tool-call previews as shell-like commands", () => {
+		assert.equal(formatToolCall("safe_bash", { command: "git", args: ["status", "--short"] }), "$ git status --short");
+	});
+
 	it("keeps expanded generic tool-call previews bounded", () => {
 		const collapsed = formatToolCall("custom", { payload: "x".repeat(500) });
 		const expanded = formatToolCall("custom", { payload: "x".repeat(500) }, true);

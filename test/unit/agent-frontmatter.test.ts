@@ -403,7 +403,7 @@ Do work
 			for (const name of ["worker", "delegate"]) {
 				const agent = agents.find((candidate) => candidate.name === name);
 				assert.ok(agent, `${name} builtin should be discovered`);
-				assert.deepEqual(agent?.tools, ["read", "grep", "find", "ls", "bash", "edit", "write", "contact_supervisor"]);
+				assert.deepEqual(agent?.tools, ["read", "grep", "find", "ls", "safe_bash", "edit", "write", "contact_supervisor"]);
 			}
 		} finally {
 			if (previousHome === undefined) delete process.env.HOME;
