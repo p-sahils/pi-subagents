@@ -45,7 +45,7 @@ describe("builtin agent overrides", () => {
 			builtins
 				.filter((agent) => agent.model !== undefined || agent.fallbackModels !== undefined)
 				.map((agent) => agent.name),
-			["worker"],
+			[],
 		);
 	});
 

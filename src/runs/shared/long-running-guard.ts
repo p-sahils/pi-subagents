@@ -100,41 +100,9 @@ export function isMutatingBashCommand(command: string): boolean {
 	return hasUnquotedFileRedirection(command) || MUTATING_BASH_PATTERNS.some((pattern) => pattern.test(command));
 }
 
-export function isMutatingSafeBashCommand(command: string, args: string[]): boolean {
-	const cmd = command.trim();
-	if (["npm", "pnpm", "yarn"].includes(cmd)) {
-		const subcommand = args[0] ?? "";
-		return ["install", "add", "remove", "uninstall", "update", ""].includes(subcommand);
-	}
-	if (cmd === "git") {
-		const subcommand = args[0] ?? "";
-		if (subcommand === "branch") {
-			const branchArgs = args.slice(1);
-			if (branchArgs.length === 0) return false;
-			const readOnlyFlags = new Set(["--all", "--remotes", "--list", "--show-current", "--verbose", "--vv", "-a", "-r", "-l", "-v", "-vv"]);
-			const hasReadOnlyFlag = branchArgs.some((arg) => readOnlyFlags.has(arg));
-			return !(hasReadOnlyFlag && branchArgs.every((arg) => readOnlyFlags.has(arg) || !arg.startsWith("-")));
-		}
-		return ["commit", "push", "reset", "clean", "checkout", "restore", "rebase", "filter-branch", "filter-repo"].includes(subcommand);
-	}
-	if (cmd === "gt") {
-		const subcommand = args[0] ?? "";
-		return ["submit", "push", "sync", "restack", "move", "delete", "abandon"].includes(subcommand);
-	}
-	if (cmd === "gh") {
-		return args[0] === "pr" && args[1] === "edit";
-	}
-	return false;
-}
-
 export function isMutatingTool(toolName: string | undefined, args: Record<string, unknown> | undefined): boolean {
 	if (!toolName) return false;
 	if (toolName === "edit" || toolName === "write") return true;
-	if (toolName === "safe_bash") {
-		const command = typeof args?.command === "string" ? args.command : "";
-		const commandArgs = Array.isArray(args?.args) ? args.args.map(String) : [];
-		return isMutatingSafeBashCommand(command, commandArgs);
-	}
 	if (toolName !== "bash") return false;
 	const command = typeof args?.command === "string" ? args.command : "";
 	if (!command.trim()) return false;
