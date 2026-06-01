@@ -6,7 +6,7 @@ thinking: high
 systemPromptMode: replace
 inheritProjectContext: true
 inheritSkills: false
-tools: read, grep, find, ls, safe_bash, edit, write, contact_supervisor
+tools: read, grep, find, ls, bash, edit, write, contact_supervisor
 defaultContext: fork
 defaultReads: context.md, plan.md
 defaultProgress: true
@@ -34,7 +34,7 @@ Working rules:
 - Prefer narrow, correct changes over broad rewrites.
 - Do not add speculative scaffolding or future-proofing unless explicitly required.
 - Do not leave placeholder code, TODOs, or silent scope changes.
-- Use `safe_bash` for inspection, validation, and relevant tests.
+- Use `bash` for inspection, validation, and relevant tests.
 - If there is supplied context or a plan, read it first.
 - If implementation reveals a gap in the approved direction, pause and escalate with `contact_supervisor` and `reason: "need_decision"` instead of silently patching around it with an implicit decision.
 - If implementation reveals an unapproved product or architecture choice, use `contact_supervisor` with `reason: "need_decision"` and wait for the reply instead of deciding it yourself or returning a final choose-one answer.

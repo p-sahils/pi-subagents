@@ -127,11 +127,7 @@ test("edit and write tool calls count as mutation attempts", () => {
 	assert.equal(hasMutationToolCall([assistantToolCall("write", { path: "a.ts" })]), true);
 });
 
-test("obvious mutating safe_bash and bash commands count as mutation attempts", () => {
-	assert.equal(hasMutationToolCall([assistantToolCall("safe_bash", { command: "git", args: ["commit", "-m", "change"] })]), true);
-	assert.equal(hasMutationToolCall([assistantToolCall("safe_bash", { command: "git", args: ["status", "--short"] })]), false);
-	assert.equal(hasMutationToolCall([assistantToolCall("safe_bash", { command: "npm", args: ["install"] })]), true);
-	assert.equal(hasMutationToolCall([assistantToolCall("safe_bash", { command: "rg", args: ["needle"] })]), false);
+test("obvious mutating bash commands count as mutation attempts", () => {
 	assert.equal(hasMutationToolCall([assistantToolCall("bash", { command: "mkdir -p src && cat > src/file.ts <<'EOF'\nhi\nEOF" })]), true);
 	assert.equal(hasMutationToolCall([assistantToolCall("bash", { command: "cat <<'EOF' > src/file.ts\nhi\nEOF" })]), true);
 	assert.equal(hasMutationToolCall([assistantToolCall("bash", { command: "python3 -c \"from pathlib import Path; Path('x').write_text('hi')\"" })]), true);

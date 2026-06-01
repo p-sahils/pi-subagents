@@ -318,7 +318,7 @@ export function detectSubagentError(messages: Message[]): ErrorInfo {
 			};
 		}
 
-		if (toolName !== "bash" && toolName !== "safe_bash") continue;
+		if (toolName !== "bash") continue;
 
 		const text = msg.content.find((c) => c.type === "text");
 		if (!text || !("text" in text)) continue;
@@ -328,7 +328,7 @@ export function detectSubagentError(messages: Message[]): ErrorInfo {
 		if (exitMatch) {
 			const code = parseInt(exitMatch[1], 10);
 			if (code !== 0) {
-				return { hasError: true, exitCode: code, errorType: toolName, details: output.slice(0, 200) };
+				return { hasError: true, exitCode: code, errorType: "bash", details: output.slice(0, 200) };
 			}
 		}
 
@@ -347,7 +347,7 @@ export function detectSubagentError(messages: Message[]): ErrorInfo {
 		];
 		for (const pattern of fatalPatterns) {
 			if (pattern.test(output)) {
-				return { hasError: true, exitCode: 1, errorType: toolName, details: output.slice(0, 200) };
+				return { hasError: true, exitCode: 1, errorType: "bash", details: output.slice(0, 200) };
 			}
 		}
 	}

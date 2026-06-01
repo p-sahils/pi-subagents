@@ -89,15 +89,6 @@ describe("detectSubagentError", { skip: !available ? "utils not importable" : un
 		assert.equal(result.errorType, "bash");
 	});
 
-	it("detects safe_bash fatal pattern (permission denied, no assistant response)", () => {
-		const messages = [
-			toolResult("safe_bash", "git: permission denied"),
-		];
-		const result = detectSubagentError(messages);
-		assert.equal(result.hasError, true);
-		assert.equal(result.errorType, "safe_bash");
-	});
-
 	it("detects bash exit code in output", () => {
 		const messages = [
 			toolResult("bash", "error: process exited with code 127"),
