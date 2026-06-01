@@ -103,6 +103,13 @@ export function formatToolCall(name: string, args: Record<string, unknown>, expa
 			const maxLength = expanded ? 240 : 60;
 			return `$ ${command.slice(0, maxLength)}${command.length > maxLength ? "..." : ""}`;
 		}
+		case "safe_bash": {
+			const command = typeof args.command === "string" ? args.command : "";
+			const commandArgs = Array.isArray(args.args) ? args.args.map(String).join(" ") : "";
+			const fullCommand = [command, commandArgs].filter(Boolean).join(" ");
+			const maxLength = expanded ? 240 : 60;
+			return `$ ${fullCommand.slice(0, maxLength)}${fullCommand.length > maxLength ? "..." : ""}`;
+		}
 		case "read":
 		case "write":
 		case "edit": {
