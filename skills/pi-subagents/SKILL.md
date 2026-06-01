@@ -527,7 +527,7 @@ subagent({
     systemPrompt: "Your system prompt here.",
     systemPromptMode: "replace",
     model: "openai-codex/gpt-5.4",
-    tools: "read,grep,find,ls,bash"
+    tools: "read,grep,find,ls,safe_bash"
   }
 })
 ```
@@ -566,7 +566,7 @@ package: code-analysis
 description: What this agent does
 model: openai-codex/gpt-5.4
 thinking: high
-tools: read, grep, find, ls, bash
+tools: read, grep, find, ls, safe_bash
 systemPromptMode: replace
 inheritProjectContext: true
 inheritSkills: false

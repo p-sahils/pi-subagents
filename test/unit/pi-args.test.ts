@@ -277,11 +277,13 @@ describe("buildPiArgs system prompt mode wiring", () => {
 			sessionEnabled: false,
 			inheritProjectContext: false,
 			inheritSkills: false,
-			tools: ["read", "grep", "find", "ls", "bash", "edit", "write", "contact_supervisor"],
+			tools: ["read", "grep", "find", "ls", "safe_bash", "edit", "write", "contact_supervisor"],
 		});
 
 		const toolsArg = args[args.indexOf("--tools") + 1];
-		assert.equal(toolsArg, "read,grep,find,ls,bash,edit,write,contact_supervisor");
+		assert.equal(toolsArg, "read,grep,find,ls,safe_bash,edit,write,contact_supervisor");
+		const extensionArgs = args.flatMap((arg, index) => arg === "--extension" ? [args[index + 1]] : []);
+		assert.equal(extensionArgs.some((arg) => arg?.endsWith(path.join("extension", "safe-bash.ts"))), true);
 	});
 
 	it("augments explicit builtin allowlists with selected direct MCP tool names", () => {
